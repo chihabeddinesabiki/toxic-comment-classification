@@ -1,0 +1,28 @@
+# Core
+flask==2.3.3
+werkzeug==2.3.6
+gunicorn==21.2.0
+
+# Data processing
+pandas==2.2.1
+numpy==1.26.4
+scikit-learn==1.4.2
+
+# Deep Learning - BERT + CNN
+torch==2.2.2
+transformers==4.41.1
+tokenizers==0.19.1
+
+# Visualization
+matplotlib==3.8.4
+seaborn==0.13.2
+
+# Text preprocessing
+regex==2024.5.15
+
+# Jupyter (for .ipynb notebook testing)
+notebook==7.2.0
+ipykernel==6.29.4
+
+# Optional (for interactive debugging/logging)
+tqdm==4.66.4

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Toxic Comment Classification 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="glass-container">
+        <h1>🧪 Toxic Comment Classification</h1>
+        <p class="tagline">Analyze comments for toxicity — fast or precise</p>
+
+        <form method="POST" action="/" enctype="multipart/form-data" id="upload-form">
+            <label for="file">📁 Upload CSV file</label>
+            <input type="file" name="file" id="file" accept=".csv" required>
+
+            <label for="model">🎯 Choose model</label>
+            <select name="model" id="model" required>
+                <option value="lp">⚡ LP (TF-IDF + LogisticRegression)</option>
+                <option value="hp">🎯 HP (BERT + CNN)</option>
+            </select>
+
+            <button type="submit">Analyze 🔍</button>
+        </form>
+
+        {% if error %}
+        <div class="error-msg">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if report %}
+        <div class="results-section">
+            <h2 class="text-2xl font-bold mb-4 text-white">📊 Results</h2>
+            <p class="text-white">Total comments: {{ report.stats.total }}</p>
+            <p class="text-white">Number of toxic: {{ report.stats.toxic }}</p>
+            <p class="text-white">Number of non-toxic: {{ report.stats.non_toxic }}</p>
+            <p class="text-white">Toxicity rate: {{ report.stats.toxic_rate }}%</p>
+
+            <div class="grid-graph">
+                <div><img src="{{ report.pie }}" alt="Pie Chart"></div>
+                <div><img src="{{ report.bar }}" alt="Bar Chart"></div>
+                <div><img src="{{ report.heatmap }}" alt="Heatmap"></div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if result_html %}
+        <div class="results">
+            {{ result_html | safe }}
+        </div>
+        {% endif %}
+    </div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
