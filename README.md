@@ -123,7 +123,7 @@ See requirements.txt for full dependency list.
 👨‍💻 Author
 
 - Chihab eddine Sabiki , chihabeddinesabiki@gmail.com
-- Master’s Student in Computer Engineering
+- Master’s Student in AI and Data
 
 ---
 
