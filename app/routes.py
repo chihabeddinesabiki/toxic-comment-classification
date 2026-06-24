@@ -47,7 +47,10 @@ def index():
             if model_type == "lp":
                 predictions = [1 if predict_lp(t) == "Toxique" else 0 for t in cleaned]
             elif model_type == "hp":
-                predictions = [1 if predict_hp(t) == "Toxique" else 0 for t in cleaned]
+                try:
+                    predictions = [1 if predict_hp(t) == "Toxique" else 0 for t in cleaned]
+                except FileNotFoundError as exc:
+                    return render_template("index.html", error=str(exc))
             else:
                 return render_template("index.html", error="❌ Unknown model selected.")
 

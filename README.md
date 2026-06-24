@@ -1,132 +1,166 @@
+# Toxic Comment Classification
 
-🧪 Toxic Comment Classification 2.0
+Machine learning and deep learning web application for detecting toxic comments from CSV files, built with Flask, Scikit-learn, and a BERT + CNN high-performance pipeline.
 
-This project is a web application designed to classify toxic comments using two machine learning models:
+<p align="center">
+  <img src="https://img.shields.io/badge/Machine%20Learning-Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-learn" />
+  <img src="https://img.shields.io/badge/Deep%20Learning-BERT%20%2B%20CNN-49DCB1?style=for-the-badge" alt="BERT CNN" />
+  <img src="https://img.shields.io/badge/Backend-Flask-111827?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/NLP-Toxicity%20Detection-7AA2FF?style=for-the-badge" alt="NLP toxicity detection" />
+</p>
 
-- LP (Light Pipeline): A lightweight model using TF-IDF + Logistic Regression.
-- HP (High-Performance Pipeline): A deep learning model using BERT + CNN.
+## Overview
 
-The app allows users to upload a CSV file containing comments, choose a model, and get predictions along with visual analysis like pie charts, bar graphs, and heatmaps.
+This project classifies text comments as toxic or non-toxic and generates visual analysis from uploaded CSV files.
 
----
+It includes two model paths:
 
-📁 Project Structure
+- **LP - Light Pipeline:** TF-IDF vectorization with Logistic Regression for fast inference.
+- **HP - High-Performance Pipeline:** BERT embeddings with a CNN classifier for deeper NLP modeling.
 
-ToxicCommentApp/
-│
+The application is designed as a practical NLP moderation tool: upload comments, choose a model, run predictions, and review summary charts.
+
+## Key Features
+
+- CSV upload and automatic comment-column detection.
+- Text preprocessing for noisy user-generated content.
+- Fast ML inference with TF-IDF + Logistic Regression.
+- Optional deep learning inference with BERT + CNN model weights.
+- Toxicity summary with total comments, toxic count, non-toxic count, and toxicity rate.
+- Visual reports using pie, bar, and heatmap charts.
+- Flask web interface for a simple end-to-end demo.
+
+## Tech Stack
+
+| Area | Tools |
+|---|---|
+| Backend | Flask, Werkzeug |
+| Machine Learning | Scikit-learn, TF-IDF, Logistic Regression |
+| Deep Learning | PyTorch, Transformers, BERT, CNN |
+| Data Processing | Pandas, NumPy |
+| Visualization | Matplotlib, Seaborn |
+| Interface | HTML, CSS, JavaScript |
+
+## Project Structure
+
+```text
+toxic-comment-classification/
 ├── app/
 │   ├── __init__.py
 │   ├── routes.py
 │   ├── model_lp.py
 │   ├── model_hp.py
 │   └── utils.py
-│
-├── static/
-│   ├── css/style.css
-│   ├── js/script.js
-│   └── (images and plots generated here)
-│
-├── templates/
-│   └── index.html
-│
 ├── data/
-│   └── uploads/         ← Where uploaded files are stored
-│
+│   ├── uploads/
+│   └── results/
+├── models/
+│   ├── model_LP.pkl
+│   └── vectorizer_LP.pkl
 ├── notebooks/
-│   └── (Optional: Jupyter notebooks for testing/visualization)
-│
-├── run.py               ← App launcher
-├── requirements.txt     ← All necessary dependencies
-└── README.txt           ← This file
+│   ├── 1_preprocessing.ipynb
+│   ├── 2_model_LP.ipynb
+│   └── 3_model_HP.ipynb
+├── static/
+├── templates/
+├── requirements.txt
+└── run.py
+```
 
----
+## Getting Started
 
-🚀 Installation Guide
+Clone the repository:
 
-1. Clone the Repository
-
-git clone https://github.com/yourusername/toxic-comment-classification.git
+```bash
+git clone https://github.com/chihabeddinesabiki/toxic-comment-classification.git
 cd toxic-comment-classification
+```
 
-2. Create a Virtual Environment (Optional but recommended)
+Create and activate a virtual environment:
 
+```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
+```
 
-3. Install Dependencies
+On Windows:
 
+```bat
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
----
+Run the app:
 
-▶️ Running the App
-
+```bash
 python run.py
+```
 
-Then open http://127.0.0.1:5000 in your browser.
+Open:
 
----
+```text
+http://127.0.0.1:5000
+```
 
-📝 File Format Requirements
+## CSV Format
 
-- Upload CSV files with a column that contains textual comments.
-- Column names should ideally be 'text', 'comment', or 'text_clean'.
-- If the file has no column headers, the system will still work by assuming the first column contains comments.
+Upload a `.csv` file containing comments. The app automatically looks for one of these columns:
 
----
+```text
+text, comment, message, content, body, text_clean
+```
 
-📊 Output
+If no matching header is found, the first column is used.
 
-After analysis, you will see:
-- Number of toxic and non-toxic comments
-- Toxicity rate
-- Pie chart, bar chart, and heatmap for visual representation
-- Optionally, the results are saved to /data/results/ as a CSV file
+Example:
 
----
-
-⚙️ Model Details
-
-LP Model (TF-IDF + Logistic Regression)
-- Fast and light
-- Good for real-time or resource-constrained environments
-
-HP Model (BERT + CNN)
-- More accurate
-- Slower inference, requires more resources (RAM/GPU recommended)
-
----
-
-💡 Examples
-
-Example input CSV:
-
+```csv
+comment
 I hate this product.
-You're amazing!
+You are amazing!
 This is disgusting.
-Great job!
+Great job.
+```
 
-Output:
-- 2 toxic
-- 2 non-toxic
-- Toxicity rate: 50%
-- Visuals generated: plot_pie.png, plot_bar.png, plot_heatmap.png
+## Model Notes
 
----
+The light pipeline model is included in the repository:
 
-🔐 Requirements
+```text
+models/model_LP.pkl
+models/vectorizer_LP.pkl
+```
 
-See requirements.txt for full dependency list.
+The high-performance BERT + CNN pipeline expects a model weights file at:
 
----
+```text
+models/model_HP.pt
+```
 
-👨‍💻 Author
+Large deep learning weights are intentionally not required for the light demo. If `model_HP.pt` is not present, the app still runs with the LP model and shows a clear message when HP is selected.
 
-- Chihab eddine Sabiki , chihabeddinesabiki@gmail.com
-- Master’s Student in AI and Data
+## Results
 
----
+The app generates:
 
-📜 License
+- total number of comments
+- toxic and non-toxic counts
+- toxicity rate
+- pie chart
+- bar chart
+- heatmap-style summary
 
-This project is for educational purposes.
+## Author
+
+**Chihab Eddine Sabiki**  
+Machine Learning & Deep Learning Engineer  
+[GitHub](https://github.com/chihabeddinesabiki) · [LinkedIn](https://www.linkedin.com/in/chihabsab) · [Email](mailto:chihabeddinesabiki@gmail.com)
+
+## License
+
+This project is provided for educational and portfolio purposes.
